@@ -1,7 +1,7 @@
 transactions = {'bread': set("12345678"), 'milk': set("123678"), 'water': set("23568"),
               'coffee': set("2567"), 'cake': set("1478"),'potatoes': set("123468")}
 frequentSetsOfProducts = []
-minimumSupport = 0.6
+minimumSupport = 0.7
 helpList = []
 for i in transactions:
     if len(transactions[i])/8 > minimumSupport:
@@ -40,7 +40,14 @@ while currantIteration <= len(transactions.keys()):
         if len(helpSet)/8 > minimumSupport:
             frequentSetsOfProducts.append(i)
     currantIteration += 1
-print("The result of the program\n", frequentSetsOfProducts)
+print("The list of prods ", "Support coef")
+helpSet = set()
+for i in frequentSetsOfProducts:
+    helpSet = transactions[i[0]].copy()
+    for j in range(len(i)):
+        for k in range(j,len(i)):
+            helpSet.intersection_update(transactions[i[j]],transactions[i[k]])
+    print(i,len(helpSet)/8)
 
 
 helpList.clear()
